@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
@@ -185,12 +185,12 @@ const Register = () => {
         <div className="w-full mt-3">
           <p className="text-xs mb-0">
             Already have an account?{" "}
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="text-blue-500 hover:text-blue-400 underline"
             >
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </div>

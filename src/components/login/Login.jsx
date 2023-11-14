@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -111,12 +111,12 @@ const Login = () => {
         <div className="w-full mt-3">
           <p className="text-xs mb-0">
             Don't have account?{" "}
-            <a
-              href="/register"
+            <Link
+              to="/register"
               className="text-blue-500 hover:text-blue-400 underline"
             >
               Create an account
-            </a>
+            </Link>
           </p>
         </div>
       </div>
