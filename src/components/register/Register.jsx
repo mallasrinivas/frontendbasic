@@ -48,7 +48,7 @@ const Register = () => {
       setIsLoading(true);
       try {
         const response = await axios.post(
-          "http://localhost:8080/auth/register",
+          "https://backendapi-ingh.onrender.com/auth/register",
           formValues
         );
         if (response.data.success) {

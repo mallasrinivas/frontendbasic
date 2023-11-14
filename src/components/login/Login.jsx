@@ -31,7 +31,7 @@ const Login = () => {
       };
       setIsLoading(true);
       axios
-        .post("http://localhost:8080/auth/login", submitObj)
+        .post("https://backendapi-ingh.onrender.com/auth/login", submitObj)
         .then((res) => {
           if (res.data.success) {
             setIsLoading(false);
