@@ -3,9 +3,9 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 const Login = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState("");
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false); // tracks if form has been submitted
@@ -29,23 +29,28 @@ const Login = () => {
         email: input,
         password: password,
       };
-
+      setIsLoading(true);
       axios
-        .post("https://backendapi-ingh.onrender.com/auth/login", submitObj)
+        .post("http://localhost:8080/auth/login", submitObj)
         .then((res) => {
           if (res.data.success) {
+            setIsLoading(false);
             localStorage.setItem("token", res.data.token);
             toast.success("Login successful !!", {
               position: toast.POSITION.TOP_RIGHT,
             });
             navigate("/dashboard");
           } else {
+            setIsLoading(false);
+
             toast.error(`${res.data.message}`, {
               position: toast.POSITION.TOP_RIGHT,
             });
           }
         })
         .catch((error) => {
+          setIsLoading(false);
+
           console.log(error);
           toast.error("Something went wrong", {
             position: toast.POSITION.TOP_RIGHT,
@@ -105,7 +110,7 @@ const Login = () => {
             type="submit"
             className="mt-3 w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
           >
-            Log in
+            {isLoading ? "Loading..." : "Log In"}
           </button>
         </form>
         <div className="w-full mt-3">

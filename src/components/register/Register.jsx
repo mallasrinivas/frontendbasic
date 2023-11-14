@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -43,12 +45,14 @@ const Register = () => {
     e.preventDefault();
     // console.log(formValues);
     if (validate()) {
+      setIsLoading(true);
       try {
         const response = await axios.post(
-          "https://backendapi-ingh.onrender.com/auth/register",
+          "http://localhost:8080/auth/register",
           formValues
         );
         if (response.data.success) {
+          setIsLoading(false);
           toast.success(`${response.data.message}`, {
             position: toast.POSITION.TOP_CENTER,
           });
@@ -62,13 +66,14 @@ const Register = () => {
           });
           navigate("/login");
         } else {
+          setIsLoading(false);
           toast.warning(`${response.data.message}`, {
             position: toast.POSITION.TOP_CENTER,
           });
         }
       } catch (error) {
         console.log(error);
-
+        setIsLoading(false);
         // Display error toast
         toast.error(error.message || "Registration Failed. Please try again.", {
           position: toast.POSITION.TOP_CENTER,
@@ -179,7 +184,7 @@ const Register = () => {
             type="submit"
             className="w-full p-2 bg-blue-500 text-white rounded-lg"
           >
-            Register
+            {isLoading ? "Loading..." : "Register"}
           </button>
         </form>
         <div className="w-full mt-3">
